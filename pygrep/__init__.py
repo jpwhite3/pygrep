@@ -7,22 +7,25 @@ def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
 
 
+def regex_search(expression, target_string, ignorecase=False):
+    raw_expression = re.escape(expression)
+    if ignorecase:
+        return re.search(raw_expression, target_string, re.I)
+    return re.search(raw_expression, target_string)
+
+
 def grep(expression, filepath, ignorecase=False, invert=False):
     results = []
-    raw_expression = re.escape(expression)
     with open(filepath) as file:
         line_number = 0
         for line in file:
             line_number += 1
-            # Enable case matching?
-            if ignorecase:
-                matches = re.search(raw_expression, line, re.I)
-            else:
-                matches = re.search(raw_expression, line)
+            matches = regex_search(expression, line, ignorecase)
 
             # Invert matches if need be and print
+            current_line_info = (filepath, line_number, line)
             if matches and not invert:
-                results.append(line)
+                results.append(current_line_info)
             elif invert and not matches:
-                results.append(line)
+                results.append(current_line_info)
     return results
