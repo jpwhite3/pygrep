@@ -1,7 +1,6 @@
-from __future__ import print_function
-import pygrep
 import glob
 import argparse
+from . import grep
 
 
 def main():
@@ -34,11 +33,7 @@ def main():
 
     file_list = glob.glob(args.filepath)
     for f in file_list:
-        if len(file_list) > 1:
-            pygrep.eprint("\nResults for file: %s" % f)
-            pygrep.eprint("-" * (len(f) + 18))
-        results = pygrep.grep(
-            args.expression, f, ignorecase=args.ignorecase, invert=args.invert
-        )
+        results = grep(args.expression, f, ignorecase=args.ignorecase, invert=args.invert)
         for result in results:
-            print(result)
+            output = "[%s] [%s] %s" % result
+            print(output)
