@@ -33,7 +33,9 @@ def main():
 
     file_list = glob.glob(args.filepath)
     for f in file_list:
-        results = grep(args.expression, f, ignorecase=args.ignorecase, invert=args.invert)
+        results = grep(
+            args.expression, f, ignorecase=args.ignorecase, invert=args.invert
+        )
         for result in results:
             output = "[%s] [%s] %s" % result
-            print(output)
+            print(output.strip("\n"))

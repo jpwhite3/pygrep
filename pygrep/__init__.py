@@ -2,11 +2,6 @@ import sys
 import re
 
 
-def eprint(*args, **kwargs):
-    # Print to STDERR instead of STDOUT
-    print(*args, file=sys.stderr, **kwargs)
-
-
 def regex_search(expression, target_string, ignorecase=False):
     raw_expression = re.escape(expression)
     if ignorecase:
@@ -17,13 +12,11 @@ def regex_search(expression, target_string, ignorecase=False):
 def grep(expression, filepath, ignorecase=False, invert=False):
     results = []
     with open(filepath) as file:
-        line_number = 0
-        for line in file:
-            line_number += 1
+        for line_no, line in enumerate(file):
             matches = regex_search(expression, line, ignorecase)
 
             # Invert matches if need be and print
-            current_line_info = (filepath, line_number, line)
+            current_line_info = (filepath, line_no, line)
             if matches and not invert:
                 results.append(current_line_info)
             elif invert and not matches:
