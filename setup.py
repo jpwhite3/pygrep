@@ -4,7 +4,6 @@ setup(
     name="pygrep",
     version="0.1.0",
     description="A pure Python implementation of GREP",
-    long_description="A pure Python implementation of the Unix tool GREP",
     classifiers=[
         "Development Status :: 3 - Alpha",
         "License :: OSI Approved :: MIT License",

@@ -1,3 +1,2 @@
-include README.rst
-include docs/*.txt
-include pygrep/*.txt
+include README.md
+include docs/*.md
