@@ -104,7 +104,7 @@ for result in results:
 python -m pygrep -h
 ```
 
-# Add some tests now
+# Add some tests
 
 ```bash
 mkdir tests
@@ -161,9 +161,21 @@ setup(
 universal=1
 ```
 
-This flag says that the code is written to work on both Python 2 and Python 3. If at all possible, it is good practice to do this. If you cannot, you will need to generate wheels for each Python version that you support.
+This flag says that the code is written to work on both Python 2 and Python 3, and to build a `wheel` file that is compatable with all platforms. If at all possible, it is good practice to do this. If you cannot, you will need to generate a binary for each Python version/platform that you intend to support.
 
 ```bash
 python setup.py sdist
 python setup.py bdist_wheel
 ```
+
+# Challenge
+
+Now that we have a simple working application, let's try adding a couple features to it. This will also require us to updates tests, and produce new versions of the package.
+
+## Feature 1 - case sensitivity
+
+We want to be able to choose if the program should honor case when searching through text. Right now, most of the code we need is already in place so we just have to introduce an additioinal argument to the CLI component then rights some tests.
+
+## Feature 2 - inverting results
+
+In this case, we want to have the option to show all lines that DON'T contain the pattern we searched for. This is implemented in grep as the `-i` option. We need to add the option to the CLI, refctor some code, update tests, and produce a new version of the package.
