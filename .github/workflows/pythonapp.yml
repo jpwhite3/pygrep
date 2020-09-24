@@ -4,10 +4,15 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     steps:
+    - uses: act10ns/slack@v1
+      with:
+        status: starting
+        channel: '#github'
+      if: always()
     - uses: actions/checkout@v1
     - name: Set up Python 3.7
       uses: actions/setup-python@v1
@@ -27,3 +32,9 @@ jobs:
       run: |
         pip install pytest
         pytest
+    - uses: act10ns/slack@v1
+      with:
+        status: ${{ job.status }}
+        steps: ${{ toJson(steps) }}
+        channel: '#github'
+      if: always()
